@@ -30,7 +30,7 @@ If you don't have a mechanism to query asset tags, you can use this:
 	UFUNCTION(BlueprintPure, Category = "Assets")
 	static bool GetAssetTagAsBool(FPrimaryAssetId Asset, FName Tag, bool& OutBool);
 
-//In that library's C++:
+//In that library's cpp:
 
     bool UYourBPFunctionLibrary::GetAssetTagAsString(FPrimaryAssetId Asset, FName Tag, FString& OutString)
     {
@@ -95,7 +95,7 @@ So, that's where Scenarios come in.  Scenarios allow us to select a Terrain, an 
 Scenarios have a list of Actions that are taken whe the scenario is made active.  Actions include:
 
 * `ActivateScenario` - Activate another scenario, allowing for scenario composition
-* `DeactivateScenario` - Deactiavte another scenario by gameplay tag query
+* `DeactivateScenario` - Deactivate another scenario by gameplay tag query
 * `ChangeMap` - Transition the game/server to another map.  This clears all other scenarios when activated
 * `StreamLevelInstance` - Streams in a LevelInstanceDynamic for a given list of levels. 
 * `AddComponents` - Adds components to the Modular Gameplay Framework subsystem, so actors registered and listening for components will receive them
