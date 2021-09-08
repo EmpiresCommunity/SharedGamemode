@@ -4,6 +4,7 @@
 #include "GameplayTriggerZone.h"
 #include "Engine/TriggerBase.h"
 #include "Engine.h"
+#include "Components/GameFrameworkComponentManager.h"
 
 // Sets default values
 AGameplayTriggerZone::AGameplayTriggerZone()
@@ -12,6 +13,16 @@ AGameplayTriggerZone::AGameplayTriggerZone()
 	PrimaryActorTick.bCanEverTick = false;
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>("Root");
+}
+
+void AGameplayTriggerZone::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (UGameFrameworkComponentManager* GameFrameworkSubsys = GetGameInstance()->GetSubsystem<UGameFrameworkComponentManager>())
+	{
+		GameFrameworkSubsys->AddReceiver(this);
+	}
 }
 
 void AGameplayTriggerZone::OnInternalVolumeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

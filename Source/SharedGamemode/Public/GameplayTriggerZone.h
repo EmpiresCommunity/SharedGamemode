@@ -20,6 +20,8 @@ public:
 	// Sets default values for this actor's properties
 	AGameplayTriggerZone();
 
+	virtual void PostInitializeComponents() override;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Trigger")
 	TArray<ATriggerBase*> TriggerVolumes;
 
