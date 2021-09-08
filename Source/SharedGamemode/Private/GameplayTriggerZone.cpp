@@ -19,9 +19,12 @@ void AGameplayTriggerZone::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	if (UGameFrameworkComponentManager* GameFrameworkSubsys = GetGameInstance()->GetSubsystem<UGameFrameworkComponentManager>())
+	if (!HasAnyFlags(RF_ClassDefaultObject) && IsValid(GetWorld()) && GetWorld()->IsGameWorld())
 	{
-		GameFrameworkSubsys->AddReceiver(this);
+		if (UGameFrameworkComponentManager* GameFrameworkSubsys = GetGameInstance()->GetSubsystem<UGameFrameworkComponentManager>())
+		{
+			GameFrameworkSubsys->AddReceiver(this);
+		}
 	}
 }
 
