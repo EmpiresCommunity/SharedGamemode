@@ -27,15 +27,12 @@ void AGameplayTriggerZone::PostInitializeComponents()
 
 void AGameplayTriggerZone::OnInternalVolumeBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	int32& Overlaps = OverlappingActors.FindOrAdd(OtherActor, 1);
-	
+	int32& Overlaps = OverlappingActors.FindOrAdd(OtherActor, 0);
+	Overlaps += 1;
+
 	if (Overlaps == 1)
 	{
 		OnZoneBeginOverlap.Broadcast(this, OtherActor);
-	}
-	else
-	{
-		Overlaps += 1;
 	}
 }
 
