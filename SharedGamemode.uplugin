@@ -37,7 +37,10 @@
 			"Name": "ModularGameplay",
 			"Enabled": true
 		},
-
+		{
+			"Name": "GameplayEventRouter",
+			"Enabled": true
+		},
 		{
 			"Name": "GameFeatures",
 			"Enabled": true

@@ -5,6 +5,8 @@ Shared Gamemode creates a modular Gameplay Scenario system that allows for the c
 
 ## Quickstart
 
+This plugin requires https://github.com/EmpiresCommunity/GameplayEventRouter, so include it in your plugins folder and enable it somewhere.
+
 This is a game feature plugin, and only works in UE 4.27+ (UE5 Early Access has the same plugin and codebase, but is not asset-compatible with 4.27 so the data asset wont load).   
 
 Drop this in your Plugins/GameFeatures/ folder.  It will auto activate.
