@@ -39,15 +39,18 @@ void UGamestateScenarioComponent::OnRegister()
 {
 	Super::OnRegister();
 
-	if (UScenarioInstanceSubsystem* Subsys = GetGameInstance<UGameInstance>()->GetSubsystem<UScenarioInstanceSubsystem>())
+	if (IsValid(GetGameInstance<UGameInstance>()))
 	{
-		Subsys->OnScenarioActivated.AddDynamic(this, &ThisClass::OnScenarioActivated);
-		Subsys->OnScenarioDeactivated.AddDynamic(this, &ThisClass::OnScenarioDeactivated);
-
-		//Gather any activated scenarios and add them to the list.
-		for (UGameplayScenario* Scenario : Subsys->ActiveScenarios)
+		if (UScenarioInstanceSubsystem* Subsys = GetGameInstance<UGameInstance>()->GetSubsystem<UScenarioInstanceSubsystem>())
 		{
-			OnScenarioActivated(Scenario);
+			Subsys->OnScenarioActivated.AddDynamic(this, &ThisClass::OnScenarioActivated);
+			Subsys->OnScenarioDeactivated.AddDynamic(this, &ThisClass::OnScenarioDeactivated);
+
+			//Gather any activated scenarios and add them to the list.
+			for (UGameplayScenario* Scenario : Subsys->ActiveScenarios)
+			{
+				OnScenarioActivated(Scenario);
+			}
 		}
 	}
 }
