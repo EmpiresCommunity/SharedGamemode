@@ -19,9 +19,17 @@ Copyright 2021 Empires Team
 #include "Engine.h"
 #include "ScenarioInstanceSubsystem.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogGameplaySA_ChangeMap, Log, All);
+
 void UGameplaySA_ChangeMap::OnScenarioPreActivated(UScenarioInstanceSubsystem* ScenarioSubsystem)
 {
 	UWorld* LoadedWorld = ScenarioSubsystem->GetGameInstance()->GetWorld();
+	if (!IsValid(LoadedWorld))
+	{
+		UE_LOG(LogGameplaySA_ChangeMap, Error, TEXT("Attempting to load a null world with asset ID: %s"), *WorldAsset.ToString());
+		return;
+	}
+
 	FName LoadedWorldName = FName(*UWorld::RemovePIEPrefix(LoadedWorld->GetOutermost()->GetName()));
 
 	if (LoadedWorldName != WorldAsset.PrimaryAssetName)
