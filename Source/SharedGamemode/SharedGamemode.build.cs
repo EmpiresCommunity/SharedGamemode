@@ -37,7 +37,6 @@ public class SharedGamemode : ModuleRules
 				"DeveloperSettings",
 				"GameFeatures",
 				"ModularGameplay",
-				"GameplayEventRouter",
 				"NetCore",
             });
 			
