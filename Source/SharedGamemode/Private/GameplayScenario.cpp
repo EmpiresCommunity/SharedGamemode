@@ -27,24 +27,50 @@ UGameplayScenario::UGameplayScenario()
 
 void UGameplayScenario::PreActivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem)
 {
-	for (UGameplayScenarioAction* Action : ScenarioActions)
+	ForEachAction_Mutable([&ScenarioSubsystem](UGameplayScenarioAction* Action)
 	{
 		Action->OnScenarioPreActivated(ScenarioSubsystem);
-	}
+	});
+
+	
 }
 
 void UGameplayScenario::ActivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem)
 {
-	for (UGameplayScenarioAction* Action : ScenarioActions)
+	ForEachAction_Mutable([&ScenarioSubsystem](UGameplayScenarioAction* Action)
 	{
 		Action->OnScenarioActivated(ScenarioSubsystem);
-	}
+	});
+
 }
 
-void UGameplayScenario::DeactivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem)
+void UGameplayScenario::DeactivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown)
+{
+	ForEachAction_Mutable([&ScenarioSubsystem](UGameplayScenarioAction* Action)
+	{
+		Action->OnScenarioDeactivated(ScenarioSubsystem);
+	});
+}
+
+void UGameplayScenario::ForEachAction_Mutable(Predicate Predicate)
 {
 	for (UGameplayScenarioAction* Action : ScenarioActions)
 	{
-		Action->OnScenarioDeactivated(ScenarioSubsystem);
+		if(IsValid(Action))
+		{
+			Predicate(Action);
+		}
 	}
 }
+
+void UGameplayScenario::ForEachAction(ConstPredicate Predicate) const
+{
+	for (UGameplayScenarioAction* Action : ScenarioActions)
+	{
+		if (IsValid(Action))
+		{
+			Predicate(Action);
+		}
+	}
+}
+

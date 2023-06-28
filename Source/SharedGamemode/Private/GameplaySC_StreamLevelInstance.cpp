@@ -46,8 +46,13 @@ void UGameplaySC_StreamLevelInstance::OnScenarioActivated(UScenarioInstanceSubsy
 	}
 }
 
-void UGameplaySC_StreamLevelInstance::OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem)
+void UGameplaySC_StreamLevelInstance::OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown)
 {
+	//If we're tearing down the level anyway, no need to unload this. It'll be unloaded with the rest of the level
+	if (bTearDown)
+	{
+		return;
+	}
 	for (ULevelStreamingDynamic* LevelStream : DynamicLevelStreams)
 	{
 		LevelStream->SetIsRequestingUnloadAndRemoval(true);

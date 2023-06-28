@@ -83,7 +83,7 @@ void UGamestateScenarioComponent::ActivateScenarioLocally(UGameplayScenario* Sce
 {
 	if (UScenarioInstanceSubsystem* Subsys = GetGameInstance<UGameInstance>()->GetSubsystem<UScenarioInstanceSubsystem>())
 	{
-		Subsys->ActivateScenario(Scenario);
+		Subsys->ActivateScenario(Scenario, false);
 	}
 }
 

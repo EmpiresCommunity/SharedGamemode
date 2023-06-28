@@ -33,7 +33,7 @@ public:
 	
 	virtual void OnScenarioActivated(UScenarioInstanceSubsystem* ScenarioSubsystem) override;
 
-	virtual void OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem) override;
+	virtual void OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "World", meta = (AllowedTypes = "Map"))
 		TArray<FPrimaryAssetId> StreamedInLevels;

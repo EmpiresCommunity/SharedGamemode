@@ -63,7 +63,7 @@ void UGameplaySA_AddComponents::OnScenarioActivated(UScenarioInstanceSubsystem* 
 	}
 }
 
-void UGameplaySA_AddComponents::OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem)
+void UGameplaySA_AddComponents::OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown)
 {
 	// Releasing the handles will also remove the components from any registered actors too
 	ComponentRequestHandles.Empty();

@@ -37,5 +37,5 @@ public:
 
 	virtual void OnScenarioActivated(UScenarioInstanceSubsystem* ScenarioSubsystem) override;
 
-	virtual void OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem) override;
+	virtual void OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown) override;
 };

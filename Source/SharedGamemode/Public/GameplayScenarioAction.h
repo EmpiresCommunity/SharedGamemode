@@ -35,6 +35,6 @@ public:
 
 	virtual void OnScenarioActivated(UScenarioInstanceSubsystem* ScenarioSubsystem) {}
 
-	virtual void OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem) {}
+	virtual void OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown = false) {}
 	
 };

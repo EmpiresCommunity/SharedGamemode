@@ -41,7 +41,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Scenario")
 	virtual void SetPendingScenario(UGameplayScenario* Scenairo);
 	UFUNCTION(BlueprintCallable, Category = "Scenario")
-	virtual void TransitionToPendingScenario();
+	virtual void TransitionToPendingScenario(bool bForce = false);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Scenario")
 	TArray<UGameplayScenario*> ActiveScenarios;
@@ -50,7 +50,7 @@ public:
 	UGameplayScenario* PendingScenario;
 
 	UPROPERTY()
-	UGameplaySA_ChangeMap* TransitionToWorld;
+	UGameplayScenario* MapTransitionScenario;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scenario")
 	bool bBecomeListenServerFromStandalone;
@@ -65,18 +65,25 @@ public:
 	friend class UGameplaySA_DeactivateScenario;
 	friend class UGamestateScenarioComponent;
 protected:
-	virtual void PreActivateScenario(FPrimaryAssetId ScenarioAsset);
-	virtual void PreActivateScenario(UGameplayScenario* Scenario);
+	virtual void PreActivateScenario(FPrimaryAssetId ScenarioAsset, bool bForce);
+	virtual void PreActivateScenario(UGameplayScenario* Scenario, bool bForce);
 
-	virtual void ActivateScenario(FPrimaryAssetId ScenarioAsset);
-	virtual void ActivateScenario(UGameplayScenario* Scenario);
+	virtual void ActivateScenario(FPrimaryAssetId ScenarioAsset, bool bForce);
+	virtual void ActivateScenario(UGameplayScenario* Scenario, bool bForce);
 
 	virtual void DeactivateScenario(UGameplayScenario* Scenario);
 	virtual void DeactivateScenario(FPrimaryAssetId ScenarioAsset);
+
+	void TearDownActiveScenarios();
 
 	virtual bool IsScenarioActive(UGameplayScenario* Scenario) const;
 
 	virtual void OnPostLoadMap(UWorld* World);
 	virtual void OnPreLoadMap(const FString& MapName);
 
+
+	void StartActivatingScenario(UGameplayScenario* Scenario, bool bForce);
+	void FinishActivatingScenario(UGameplayScenario* Scenario, bool bForce);
+
+	void TransitionToWorld(FPrimaryAssetId World);
 };

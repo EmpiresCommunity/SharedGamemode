@@ -13,9 +13,7 @@
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
-	"Installed": false,
-	"ExplicitlyLoaded": true,
-	"BuiltInInitialFeatureState": "Registered",
+	"EnabledByDefault": true,
 	"Modules": [
 		{
 			"Name": "SharedGamemode",

@@ -34,6 +34,11 @@ class SHAREDGAMEMODE_API UGameplayScenario : public UPrimaryDataAsset, public IG
 public:
 	UGameplayScenario();
 
+	//Optional Map.  If set, this will be loaded when the scenario is activated
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Actions", meta = (AllowedTypes = "Map"), AssetRegistrySearchable)
+	FPrimaryAssetId Map;
+
+	//Actions to run when the scenario is activated
 	UPROPERTY(EditDefaultsOnly, Instanced, Category = "Actions")
 	TArray<UGameplayScenarioAction*> ScenarioActions;
 
@@ -43,10 +48,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI", AssetRegistrySearchable)
 	FText Description;
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI", AssetRegistrySearchable)
-	bool bTopLevel;
-
+		
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "UI")
 	FGameplayTagContainer ScenarioTags;
 
@@ -54,5 +56,11 @@ public:
 
 	void PreActivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem);
 	void ActivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem);
-	void DeactivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem);
+	void DeactivateScenario(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown = false);
+
+	using Predicate = TFunctionRef<void(UGameplayScenarioAction*)>;
+	void ForEachAction_Mutable(Predicate Predicate);
+
+	using ConstPredicate = TFunctionRef<void(const UGameplayScenarioAction*)>;
+	void ForEachAction(ConstPredicate Predicate) const;
 };

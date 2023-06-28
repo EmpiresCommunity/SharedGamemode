@@ -27,7 +27,7 @@ void UGameplaySA_ActivateScenario::OnScenarioPreActivated(UScenarioInstanceSubsy
 {
 	for (FPrimaryAssetId ScenarioAsset : Scenarios)
 	{
-		ScenarioSubsystem->PreActivateScenario(ScenarioAsset);
+		ScenarioSubsystem->PreActivateScenario(ScenarioAsset, false);
 	}
 }
 
@@ -35,12 +35,17 @@ void UGameplaySA_ActivateScenario::OnScenarioActivated(UScenarioInstanceSubsyste
 {	
 	for (FPrimaryAssetId ScenarioAsset : Scenarios)
 	{		
-		ScenarioSubsystem->ActivateScenario(ScenarioAsset);
+		ScenarioSubsystem->ActivateScenario(ScenarioAsset, false);
 	}
 }
 
-void UGameplaySA_ActivateScenario::OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem)
+void UGameplaySA_ActivateScenario::OnScenarioDeactivated(UScenarioInstanceSubsystem* ScenarioSubsystem, bool bTearDown)
 {
+	//No need to deactivate if we are tearing down.  Teardown will destroy our children anyway.
+	if (bTearDown)
+	{
+		return;
+	}
 	for (FPrimaryAssetId ScenarioAsset : Scenarios)
 	{
 		ScenarioSubsystem->DeactivateScenario(ScenarioAsset);
